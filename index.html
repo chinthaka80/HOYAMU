@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOYAMU.NET | හොයන හැමදේම එකම තැන | Sri Lanka's Digital Super Platform</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E25704;
+            --primary-hover: #C94D03;
+            --gold: #D4AF37;
+            --dark: #0A0A0A;
+            --dark-light: #161616;
+            --dark-card: #1E1E1E;
+            --text-light: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border: #2E2E2E;
+            --glow: rgba(226, 87, 4, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Container Limit */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light);
+        }
+
+        .btn-header {
+            background-color: rgba(226, 87, 4, 0.1);
+            border: 1px solid rgba(226, 87, 4, 0.2);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-header:hover {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        /* Hero Banner */
+        .hero {
+            position: relative;
+            padding: 8rem 0 6rem;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-glow-1 {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background-color: var(--glow);
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-wrapper {
+            position: relative;
+            z-index: 2;
+            max-w: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(226, 87, 4, 0.1);
+            border: 1px solid rgba(226, 87, 4, 0.2);
+            color: var(--primary);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: -0.01em;
+        }
+
+        .hero p.tagline {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive Search Auto-Complete Simulation Box */
+        .search-demo-container {
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-demo-bar {
+            display: flex;
+            background-color: var(--dark-light);
+            border: 1px solid var(--border);
+            padding: 0.4rem;
+            border-radius: 12px;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .search-demo-bar:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(226, 87, 4, 0.1);
+        }
+
+        .search-icon {
+            padding: 0 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .search-demo-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            padding: 0.6rem 0;
+        }
+
+        .search-demo-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Autocomplete dropdown list panel */
+        .search-autocomplete-panel {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background-color: var(--dark-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .autocomplete-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            padding: 0.8rem 1rem 0.4rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .autocomplete-item {
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .autocomplete-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+        }
+
+        .autocomplete-item .category-tag {
+            font-size: 0.65rem;
+            background-color: rgba(226, 87, 4, 0.1);
+            color: var(--primary);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-light);
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 8 Feature Cards */
+        .features {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--dark-light);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(226, 87, 4, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon-wrapper {
+            height: 48px;
+            width: 48px;
+            background-color: rgba(226, 87, 4, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.2rem;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark-light);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all 0.3s;
+            gap: 0.8rem;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary);
+            background-color: rgba(226, 87, 4, 0.05);
+            color: var(--primary);
+        }
+
+        .category-icon {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .category-item:hover .category-icon {
+            color: var(--primary);
+        }
+
+        .category-item span {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Roadmap Timeline */
+        .roadmap {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .roadmap-timeline {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .roadmap-step {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .roadmap-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .roadmap-marker {
+            position: absolute;
+            left: -41px;
+            top: 4px;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--dark);
+            background-color: var(--primary);
+            box-shadow: 0 0 10px rgba(226, 87, 4, 0.5);
+        }
+
+        .roadmap-step.completed .roadmap-marker {
+            background-color: #16A34A;
+            box-shadow: 0 0 10px rgba(22, 163, 74, 0.5);
+        }
+
+        .roadmap-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap-ver {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .roadmap-status {
+            font-size: 0.65rem;
+            background-color: rgba(226, 87, 4, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .roadmap-step.completed .roadmap-status {
+            background-color: rgba(22, 163, 74, 0.1);
+            color: #16A34A;
+        }
+
+        .roadmap-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Technology Stack Grid */
+        .tech {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+        }
+
+        .tech-item {
+            background-color: var(--dark-light);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tech-item h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .tech-item span {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Newsletter Signup Form Area */
+        .newsletter {
+            padding: 8rem 0;
+            background-color: var(--dark-light);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background-color: var(--glow);
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .newsletter-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .newsletter p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .newsletter form {
+            display: flex;
+            width: 100%;
+            gap: 0.5rem;
+        }
+
+        .newsletter input[type="email"] {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter input[type="email"]:focus {
+            border-color: var(--primary);
+        }
+
+        .newsletter-success {
+            display: none;
+            background-color: rgba(22, 163, 74, 0.1);
+            border: 1px solid rgba(22, 163, 74, 0.3);
+            color: #16A34A;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        /* Footer contact / copyright rules */
+        footer {
+            background-color: var(--dark);
+            padding: 4rem 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-info {
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-info p {
+            line-height: 1.5;
+        }
+
+        .footer-contacts {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-contacts li span {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-col h4 {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-light);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile responsiveness adaptations */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-wrapper {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter form {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">HOYAMU<span>.NET</span></a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="#technology" class="nav-link">Technology</a>
+                <a href="https://github.com/hoyamu/super-platform" class="nav-link">GitHub</a>
+                <a href="#newsletter" class="btn-header">Coming Soon</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-glow-1"></div>
+        <div class="container hero-wrapper">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Pre-Launch Early Access Active
+            </div>
+            <h1>HOYAMU.NET</h1>
+            <h2>ශ්‍රී ලංකාවේ හොයන හැමදේම එකම තැන</h2>
+            <p class="tagline">
+                Properties &bull; Vehicles &bull; Jobs &bull; Businesses &bull; News &bull; Marketplace &bull; AI Search
+            </p>
+
+            <!-- Search Suggestion simulator box -->
+            <div class="search-demo-container">
+                <div class="search-demo-bar">
+                    <span class="search-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
+                    <input type="text" id="demo-search-input" placeholder="Try typing: 'Prius', 'Software', 'House'..." onfocus="showAutocomplete()" onblur="hideAutocompleteDelayed()">
+                </div>
+
+                <!-- Suggestions items -->
+                <div class="search-autocomplete-panel" id="autocomplete-dropdown">
+                    <div class="autocomplete-title">Suggested Searches</div>
+                    <div class="autocomplete-item" onclick="selectSuggestion('Toyota Prius below 8 million Colombo')">
+                        <span>Toyota Prius Colombo</span>
+                        <span class="category-tag">Vehicles</span>
+                    </div>
+                    <div class="autocomplete-item" onclick="selectSuggestion('Senior Software Engineer vacancy')">
+                        <span>Senior Software Engineer</span>
+                        <span class="category-tag">Jobs</span>
+                    </div>
+                    <div class="autocomplete-item" onclick="selectSuggestion('3 Bedroom Luxury Apartment Kandy')">
+                        <span>3 Bedroom Apartment Kandy</span>
+                        <span class="category-tag">Properties</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-ctas">
+                <a href="#newsletter" class="btn-primary">Join Early Access</a>
+                <a href="#roadmap" class="btn-outline">View Roadmap</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>What is HOYAMU.NET?</h2>
+                <p>Learn more about our core mission and concept</p>
+            </div>
+            <p class="about-text">
+                Hoyamu.net is Sri Lanka's upcoming digital super platform designed to combine fragmented online classified tools into one high-performance dashboard ecosystem. By bridging vehicle inventories, real-estate catalogs, job boards, and business directory search under a unified framework, we provide citizens with a secure, verification-checked search experience.
+            </p>
+        </div>
+    </section>
+
+    <!-- 8 Feature Cards -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ecosystem Feature Modules</h2>
+                <p>Eight core pillars powering the super platform directories</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Card 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <h3>Smart AI Search</h3>
+                    <p>Fuzzy lookup systems understanding Sinhala, Tamil, and English queries.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></svg>
+                    </div>
+                    <h3>Business Directory</h3>
+                    <p>Verified profile directories listing contacts, maps, and ratings.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    </div>
+                    <h3>Jobs Board</h3>
+                    <p>Local vacancy boards supporting dynamic CV application triggers.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </div>
+                    <h3>Properties Hub</h3>
+                    <p>Real-estate portals mapping land, house, and apartment ads.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                    <h3>Vehicles Marketplace</h3>
+                    <p>Motor marketplace catalogs comparing cars mileage, fuel, and options.</p>
+                </div>
+                <!-- Card 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </div>
+                    <h3>Classified Marketplace</h3>
+                    <p>General trade categories for electronics, clothes, and tools.</p>
+                </div>
+                <!-- Card 7 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3>AI Assistant</h3>
+                    <p>Intelligent descriptions writer and category detector helper.</p>
+                </div>
+                <!-- Card 8 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </div>
+                    <h3>News Portal</h3>
+                    <p>Guides, automotive insights, and marketplace updates posts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories list section -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Browse Marketplace Categories</h2>
+                <p>Ten primary taxonomy divisions configured in our database</p>
+            </div>
+
+            <div class="categories-grid">
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    <span>Vehicles</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Property</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></svg>
+                    <span>Services</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+                    <span>Education</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span>Hotels</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span>Restaurants</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></svg>
+                    <span>Hospitals</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Events</span>
+                </a>
+                <a href="#" class="category-item">
+                    <svg class="category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>News</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Version Roadmap Timeline -->
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2>Product Version Roadmap</h2>
+                <p>Tracking completed iterations and future expansion schedules</p>
+            </div>
+
+            <div class="roadmap-timeline">
+                <div class="roadmap-step completed">
+                    <span class="roadmap-marker"></span>
+                    <div class="roadmap-header">
+                        <span class="roadmap-ver">Version 0.1 (Foundations)</span>
+                        <span class="roadmap-status">Completed</span>
+                    </div>
+                    <p class="roadmap-desc">Project repository files creation, ERD schemas design, Next.js setups, and Tailwind configurations.</p>
+                </div>
+
+                <div class="roadmap-step">
+                    <span class="roadmap-marker"></span>
+                    <div class="roadmap-header">
+                        <span class="roadmap-ver">Version 0.5 (Core MVP)</span>
+                        <span class="roadmap-status">In Progress</span>
+                    </div>
+                    <p class="roadmap-desc">PostgreSQL tables seeding, User login/register validation, locations lookup tables and search results pages.</p>
+                </div>
+
+                <div class="roadmap-step">
+                    <span class="roadmap-marker"></span>
+                    <div class="roadmap-header">
+                        <span class="roadmap-ver">Version 1.0 (Public Beta)</span>
+                        <span class="roadmap-status">Upcoming</span>
+                    </div>
+                    <p class="roadmap-desc">Sanctum token authorization checks, real-time messaging services, and PayHere checkout gateway integrations.</p>
+                </div>
+
+                <div class="roadmap-step">
+                    <span class="roadmap-marker"></span>
+                    <div class="roadmap-header">
+                        <span class="roadmap-ver">Version 2.0 (AI Powerups)</span>
+                        <span class="roadmap-status">Planned</span>
+                    </div>
+                    <p class="roadmap-desc">Fuzzy query translation integrations, search auto-completes, and recommender engines setups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack section -->
+    <section class="tech" id="technology">
+        <div class="container">
+            <div class="section-header">
+                <h2>Scalable Technology Stack</h2>
+                <p>Robust enterprise-grade stack components mapping</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h4>Laravel 12</h4>
+                    <span>REST API</span>
+                </div>
+                <div class="tech-item">
+                    <h4>Next.js 16</h4>
+                    <span>Client SSR</span>
+                </div>
+                <div class="tech-item">
+                    <h4>PostgreSQL</h4>
+                    <span>Data Vault</span>
+                </div>
+                <div class="tech-item">
+                    <h4>Redis</h4>
+                    <span>Cache Engine</span>
+                </div>
+                <div class="tech-item">
+                    <h4>Cloudflare</h4>
+                    <span>CDN & WAF</span>
+                </div>
+                <div class="tech-item">
+                    <h4>Docker</h4>
+                    <span>Containers</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter signup form -->
+    <section class="newsletter" id="newsletter">
+        <div class="newsletter-glow"></div>
+        <div class="container newsletter-wrapper">
+            <h2>Join 10,000 Early Access Users</h2>
+            <p>
+                Subscribe to our newsletter list and get early beta notifications, launch guides, and verified member discounts.
+            </p>
+
+            <form id="subscribe-form-newsletter" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" id="newsletter-email-input" required placeholder="Enter your email address">
+                <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
+
+            <div id="newsletter-success-msg" class="newsletter-success">
+                Registration Successful! You are in the early access queue.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Area -->
+    <footer>
+        <div class="container footer-wrapper">
+            <div class="footer-info">
+                <a href="#" class="logo">HOYAMU<span>.NET</span></a>
+                <p>Connecting buyers, sellers, employers, and businesses in one unified digital ecosystem.</p>
+                <ul class="footer-contacts">
+                    <li><span>Email:</span> info@hoyamu.net</li>
+                    <li><span>Office:</span> Colombo, Sri Lanka</li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/hoyamu/super-platform">GitHub Repo</a></li>
+                        <li><a href="#roadmap">Timeline</a></li>
+                        <li><a href="#technology">Tech Stack</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <div>&copy; 2026 HOYAMU.NET. All rights reserved.</div>
+            <div>Designed by Chinthaka Nuwan</div>
+        </div>
+    </footer>
+
+    <!-- Simulating Search autocomplete functionality -->
+    <script>
+        function showAutocomplete() {
+            document.getElementById('autocomplete-dropdown').style.display = 'block';
+        }
+
+        function hideAutocompleteDelayed() {
+            setTimeout(() => {
+                document.getElementById('autocomplete-dropdown').style.display = 'none';
+            }, 200);
+        }
+
+        function selectSuggestion(val) {
+            document.getElementById('demo-search-input').value = val;
+        }
+
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            document.getElementById('subscribe-form-newsletter').style.display = 'none';
+            document.getElementById('newsletter-success-msg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

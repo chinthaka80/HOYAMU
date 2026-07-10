@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/node/Dockerfile
+    container_name: hoyamu-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - hoyamu-network
+
+  # Laravel Backend REST API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/php/Dockerfile
+    container_name: hoyamu-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - hoyamu-network
+
+  # Nginx Web Server / Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: hoyamu-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./backend:/var/www/html
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - hoyamu-network
+
+  # PostgreSQL Production Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: hoyamu-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hoyamu_db
+      POSTGRES_USER: hoyamu_user
+      POSTGRES_PASSWORD: secretpassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - hoyamu-network
+
+  # Redis caching & queues
+  redis:
+    image: redis:alpine
+    container_name: hoyamu-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - hoyamu-network
+
+  # Meilisearch Instant Search Engine
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: hoyamu-meilisearch
+    restart: unless-stopped
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_ENV=production
+      - MEILI_MASTER_KEY=secretmasterkey
+    volumes:
+      - meili-data:/meili_data
+    networks:
+      - hoyamu-network
+
+networks:
+  hoyamu-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  meili-data:
+    driver: local

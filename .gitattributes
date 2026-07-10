@@ -1,2 +1,12 @@
-# Auto detect text files and perform LF normalization
+# Set default behavior to automatic text line ending normalization.
 * text=auto
+
+# Force LF on scripts and configs
+*.sh text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+
+# Binary files
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
