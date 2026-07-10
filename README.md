@@ -187,7 +187,7 @@ npm run dev
 
 ## Contact & Team
 
-- **Project Owner:** Chinthaka Nuwan (Founder, HOYAMU.NET)
+- **Project Owner:**  (Founder, HOYAMU.NET)
 - **Official Website:** [https://hoyamu.net](https://hoyamu.net)
 - **Contact Email:** [info@hoyamu.net](mailto:info@hoyamu.net)
 

@@ -8,7 +8,7 @@
 
 **Last Updated:** 2026-07-10
 
-**Prepared By:** Chinthaka Nuwan
+**Prepared By:** 
 
 **Project:** HOYAMU.NET
 
@@ -21,8 +21,8 @@
 * **Request Body:**
 ```json
 {
-  "name": "Chinthaka Nuwan",
-  "email": "chinthaka@hoyamu.net",
+  "name": "",
+  "email": "savi@hoyamu.net",
   "password": "SecurePassword123",
   "phone": "0771234567"
 }
@@ -35,8 +35,8 @@
   "data": {
     "user": {
       "uuid": "450e8400-e29b-41d4-a716-446655440000",
-      "name": "Chinthaka Nuwan",
-      "email": "chinthaka@hoyamu.net",
+      "name": "",
+      "email": "savi@hoyamu.net",
       "phone": "0771234567"
     },
     "token": "1|qWf982Kdjks..."
@@ -51,7 +51,7 @@
 * **Request Body:**
 ```json
 {
-  "email": "chinthaka@hoyamu.net",
+  "email": "savi@hoyamu.net",
   "password": "SecurePassword123"
 }
 ```
