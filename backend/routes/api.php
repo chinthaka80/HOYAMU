@@ -17,6 +17,23 @@ use App\Http\Controllers\BusinessController;
 |
 */
 
+// Database & Server Health Check
+Route::get('/db-check', function () {
+    try {
+        \DB::connection()->getPdo();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'PostgreSQL connection established successfully.',
+            'database' => \DB::connection()->getDatabaseName()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Could not connect to database: ' . $e->getMessage()
+        ], 500);
+    }
+});
+
 // Authentication Routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

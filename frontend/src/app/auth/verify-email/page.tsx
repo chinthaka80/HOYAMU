@@ -48,7 +48,7 @@ export default function VerifyEmailPage() {
           </Button>
 
           <div className="pt-4 border-t border-[#E5E7EB]">
-            <Link href="/login" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E25704] hover:underline">
+            <Link href="/auth/login" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E25704] hover:underline">
               Go to Sign In
               <ArrowRight size={16} />
             </Link>

@@ -62,7 +62,7 @@ export default function ResetPasswordPage() {
               Your password has been reset successfully. You can now login with your new password.
             </p>
             <div className="mt-6">
-              <Link href="/login" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E25704] hover:underline">
+              <Link href="/auth/login" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E25704] hover:underline">
                 Go to Sign In
                 <ArrowLeft className="rotate-180" size={16} />
               </Link>

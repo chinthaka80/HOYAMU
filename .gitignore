@@ -27,3 +27,6 @@ build/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Sub-repositories
+HOYAMU.NET/

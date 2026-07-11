@@ -58,13 +58,13 @@ export default function Navbar() {
             </Button>
 
             {/* Authentication & Post ad */}
-            <Link href="/login">
+            <Link href="/auth/login">
               <Button variant="ghost" size="sm" className="text-xs font-semibold text-[#222222] hover:text-[#E25704]">
                 Sign In
               </Button>
             </Link>
 
-            <Link href="/login">
+            <Link href="/auth/login">
               <Button size="sm" className="h-9 px-4 bg-[#E25704] hover:bg-[#C94D03] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all">
                 <PlusCircle size={14} />
                 Post Ad
@@ -127,13 +127,13 @@ export default function Navbar() {
 
           {/* Quick actions for mobile */}
           <div className="pt-4 border-t border-[#E5E7EB] space-y-3">
-            <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
+            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="w-full">
               <Button variant="outline" className="w-full h-10 border-[#E5E7EB] text-[#222222] text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
                 <User size={16} />
                 Sign In
               </Button>
             </Link>
-            <Link href="/login" onClick={() => setIsOpen(false)} className="w-full block">
+            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="w-full block">
               <Button className="w-full h-10 bg-[#E25704] hover:bg-[#C94D03] text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
                 <PlusCircle size={16} />
                 Post Ad

@@ -80,7 +80,7 @@ export default function LoginPage() {
               <label className="block text-xs font-medium text-[#222222] uppercase tracking-wider">
                 Password *
               </label>
-              <Link href="/forgot-password" className="text-xs font-medium text-[#E25704] hover:underline">
+              <Link href="/auth/forgot-password" className="text-xs font-medium text-[#E25704] hover:underline">
                 Forgot Password?
               </Link>
             </div>
@@ -136,7 +136,7 @@ export default function LoginPage() {
         <div className="text-center mt-6 pt-6 border-t border-[#E5E7EB]">
           <p className="text-sm text-[#6B7280]">
             Don't have an account?{' '}
-            <Link href="/register" className="font-semibold text-[#E25704] hover:underline">
+            <Link href="/auth/register" className="font-semibold text-[#E25704] hover:underline">
               Sign Up
             </Link>
           </p>
