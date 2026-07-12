@@ -19,44 +19,58 @@ class EduSeeder extends Seeder
             [
                 'name' => 'Combined Mathematics',
                 'grade' => '13',
-                'stream' => 'Physical Science',
+                'stream' => 'al',
                 'slug' => 'combined-maths',
                 'icon' => 'Calculator',
             ],
             [
                 'name' => 'Physics',
                 'grade' => '13',
-                'stream' => 'Physical Science',
+                'stream' => 'al',
                 'slug' => 'physics',
                 'icon' => 'Atom',
             ],
             [
                 'name' => 'Chemistry',
                 'grade' => '13',
-                'stream' => 'Physical Science',
+                'stream' => 'al',
                 'slug' => 'chemistry',
                 'icon' => 'FlaskConical',
             ],
             [
                 'name' => 'Biology',
                 'grade' => '13',
-                'stream' => 'Biological Science',
+                'stream' => 'al',
                 'slug' => 'biology',
                 'icon' => 'Dna',
             ],
             [
                 'name' => 'Mathematics',
                 'grade' => '11',
-                'stream' => 'O/L',
+                'stream' => 'ol',
                 'slug' => 'ol-maths',
                 'icon' => 'Calculator',
             ],
             [
                 'name' => 'Science',
                 'grade' => '11',
-                'stream' => 'O/L',
+                'stream' => 'ol',
                 'slug' => 'ol-science',
                 'icon' => 'Atom',
+            ],
+            [
+                'name' => 'Science',
+                'grade' => '6',
+                'stream' => 'grade-6',
+                'slug' => 'g6-science',
+                'icon' => 'Atom',
+            ],
+            [
+                'name' => 'History',
+                'grade' => '11',
+                'stream' => 'ol',
+                'slug' => 'ol-history',
+                'icon' => 'GraduationCap',
             ],
         ];
 
@@ -79,6 +93,14 @@ class EduSeeder extends Seeder
                     'content' => "# Newton's Laws of Motion\n\nNewton's laws of motion are three physical laws that, together, laid the foundation for classical mechanics.\n\n### First Law (Law of Inertia)\nEvery object continues in its state of rest, or of uniform velocity in a straight line, unless compelled to change that state by a net force.\n\n### Second Law (Force and Acceleration)\n\nThe acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass:\n\n\$\$F = ma\$\$\n\nwhere:\n- \$F\$ = Force (Newtons, N)\n- \$m\$ = Mass (kg)\n- \$a\$ = Acceleration (\$ms^{-2}\$)\n\n### Third Law (Action & Reaction)\nTo every action there is always an opposed equal reaction.",
                     'type' => 'theory',
                     'slug' => 'newtons-laws',
+                ]);
+            } elseif ($subj['slug'] === 'g6-science') {
+                EduLesson::create([
+                    'subject_id' => $subject->id,
+                    'title' => 'Photosynthesis (ප්‍රභාසංස්ලේෂණය)',
+                    'content' => "# Photosynthesis (ප්‍රභාසංස්ලේෂණය)\n\nPhotosynthesis is the process by which green plants and some other organisms use sunlight to synthesize nutrients from carbon dioxide and water.\n\n### Equation of Photosynthesis:\n\n\$\$6CO_2 + 6H_2O \\xrightarrow{\\text{Sunlight, Chlorophyll}} C_6H_{12}O_6 + 6O_2\$\$\n\n### Key Components:\n- **Carbon Dioxide (CO2)**: Absorbed from the atmosphere through stomata.\n- **Water (H2O)**: Absorbed from soil via root system.\n- **Sunlight**: Captured by chlorophyll pigment in chloroplasts.",
+                    'type' => 'theory',
+                    'slug' => 'photosynthesis',
                 ]);
             } else {
                 EduLesson::create([
