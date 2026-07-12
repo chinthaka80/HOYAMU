@@ -5,8 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Link from 'next/link';
-import { LogIn, Key, Mail, Lock } from 'lucide-react';
+import { LogIn, Mail, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/useToast';
+import { useAuthStore } from '@/store/authStore';
+import { useRouter } from 'next/navigation';
 
 // Zod Login validation schema
 const loginSchema = z.object({
@@ -18,6 +22,11 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const { login } = useAuth();
+  const toast = useToast();
+  const { setUser } = useAuthStore();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -32,9 +41,16 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    // API connection logic hook placeholder
-    console.log('Login credentials payload:', data);
-    return new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await login({ identity: data.identity, password: data.password });
+      if (response?.success) {
+        setUser(response.data.user);
+        toast.success('Welcome back!', response.message || 'Logged in successfully.');
+        router.push('/dashboard');
+      }
+    } catch (err: any) {
+      toast.error('Login Failed', err?.response?.data?.message || 'Invalid credentials.');
+    }
   };
 
   return (
@@ -63,7 +79,7 @@ export default function LoginPage() {
               <input
                 {...register('identity')}
                 type="text"
-                placeholder="e.g. chinthaka@hoyamu.net"
+                placeholder="e.g. user@hoyamu.net"
                 className={`w-full h-11 pl-10 pr-4 bg-white border rounded-xl text-sm text-[#222222] placeholder-[#9CA3AF] transition-colors focus:outline-none focus:border-[#E25704] focus:ring-2 focus:ring-[#E25704]/10 ${
                   errors.identity ? 'border-[#DC2626]' : 'border-[#E5E7EB]'
                 }`}

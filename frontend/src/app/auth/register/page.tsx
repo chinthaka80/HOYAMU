@@ -5,10 +5,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Link from 'next/link';
-import { User, Mail, Phone, Lock, CheckCircle } from 'lucide-react';
+import { User as UserIcon, Mail, Phone, Lock, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/useToast';
+import { useRouter } from 'next/navigation';
 
-// Zod Registration validation schema
+// Zod Registration validation schema with strict password rules
 const registerSchema = z
   .object({
     firstName: z.string().min(2, { message: 'First name must be at least 2 characters.' }),
@@ -16,7 +19,12 @@ const registerSchema = z
     username: z.string().min(3, { message: 'Username must be at least 3 characters.' }),
     email: z.string().email({ message: 'Please enter a valid email address.' }),
     phone: z.string().min(9, { message: 'Please enter a valid phone number.' }),
-    password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
+    password: z.string()
+      .min(8, { message: 'Password must be at least 8 characters.' })
+      .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter.' })
+      .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter.' })
+      .regex(/[0-9]/, { message: 'Password must contain at least one number.' })
+      .regex(/[!@#$%^&*(),.?":{}|<>]/, { message: 'Password must contain at least one special character.' }),
     confirmPassword: z.string(),
     district: z.string().min(1, { message: 'Please select a district.' }),
     acceptTerms: z.boolean().refine((val) => val === true, {
@@ -31,6 +39,10 @@ const registerSchema = z
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
+  const { register: registerUser } = useAuth();
+  const toast = useToast();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -51,9 +63,24 @@ export default function RegisterPage() {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    // API connection logic hook placeholder
-    console.log('Registration payload:', data);
-    return new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await registerUser({
+        first_name: data.firstName,
+        last_name: data.lastName,
+        username: data.username,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+        password_confirmation: data.confirmPassword,
+        district: data.district,
+      });
+      if (response?.success) {
+        toast.success('Registration Successful', response.message || 'You can now log in.');
+        router.push('/auth/login');
+      }
+    } catch (err: any) {
+      toast.error('Registration Failed', err?.response?.data?.message || 'Check registration details.');
+    }
   };
 
   return (
@@ -79,7 +106,7 @@ export default function RegisterPage() {
               <input
                 {...register('firstName')}
                 type="text"
-                placeholder="Chinthaka"
+                placeholder="Kushan"
                 className={`w-full h-11 px-4 bg-white border rounded-xl text-sm text-[#222222] placeholder-[#9CA3AF] transition-colors focus:outline-none focus:border-[#E25704] focus:ring-2 focus:ring-[#E25704]/10 ${
                   errors.firstName ? 'border-[#DC2626]' : 'border-[#E5E7EB]'
                 }`}
@@ -113,12 +140,12 @@ export default function RegisterPage() {
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-[#6B7280]">
-                <User size={18} />
+                <UserIcon size={18} />
               </span>
               <input
                 {...register('username')}
                 type="text"
-                placeholder="chinthaka_nuwan"
+                placeholder="kushan_silva"
                 className={`w-full h-11 pl-10 pr-4 bg-white border rounded-xl text-sm text-[#222222] placeholder-[#9CA3AF] transition-colors focus:outline-none focus:border-[#E25704] focus:ring-2 focus:ring-[#E25704]/10 ${
                   errors.username ? 'border-[#DC2626]' : 'border-[#E5E7EB]'
                 }`}
@@ -142,7 +169,7 @@ export default function RegisterPage() {
                 <input
                   {...register('email')}
                   type="email"
-                  placeholder="chinthaka@hoyamu.net"
+                  placeholder="kushan@hoyamu.net"
                   className={`w-full h-11 pl-10 pr-4 bg-white border rounded-xl text-sm text-[#222222] placeholder-[#9CA3AF] transition-colors focus:outline-none focus:border-[#E25704] focus:ring-2 focus:ring-[#E25704]/10 ${
                     errors.email ? 'border-[#DC2626]' : 'border-[#E5E7EB]'
                   }`}

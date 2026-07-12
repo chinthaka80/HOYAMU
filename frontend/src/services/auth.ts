@@ -21,4 +21,12 @@ export const authService = {
     const response = await api.put('/profile', profileData);
     return response.data;
   },
+  updatePassword: async (passwordData: any) => {
+    const response = await api.put('/password', passwordData);
+    return response.data;
+  },
+  deleteAccount: async () => {
+    const response = await api.delete('/account');
+    return response.data;
+  },
 };

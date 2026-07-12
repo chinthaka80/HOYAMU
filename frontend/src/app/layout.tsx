@@ -44,6 +44,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Providers from "@/providers/Providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -52,9 +54,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${notoSinhala.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans bg-[#FAFAFA] text-[#222222]">
-        <Navbar />
-        <main className="flex-1 flex flex-col">{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
