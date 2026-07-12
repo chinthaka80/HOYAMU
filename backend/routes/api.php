@@ -60,6 +60,7 @@ Route::prefix('edu')->group(function () {
     Route::get('/subjects/{subjectSlug}/lessons', [EduController::class, 'lessons']);
     Route::get('/subjects/{subjectSlug}/lessons/{lessonSlug}', [EduController::class, 'lessonDetail']);
     Route::get('/subjects/{subjectSlug}/papers', [EduController::class, 'papers']);
+    Route::get('/papers/year/{year}', [EduController::class, 'papersByYear']);
     
     // AI Tutor Chat endpoints
     Route::post('/ai-tutor/ask', [AITutorController::class, 'ask']);

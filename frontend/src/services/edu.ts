@@ -17,6 +17,10 @@ export const eduService = {
     const response = await api.get(`/edu/subjects/${subjectSlug}/papers`);
     return response.data;
   },
+  getPapersByYear: async (year: number) => {
+    const response = await api.get(`/edu/papers/year/${year}`);
+    return response.data;
+  },
   askAITutor: async (subjectId: number, message: string, chatId?: number) => {
     const response = await api.post('/edu/ai-tutor/ask', {
       subject_id: subjectId,

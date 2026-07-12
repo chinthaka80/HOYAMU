@@ -111,4 +111,20 @@ class EduController extends Controller
             'message' => 'Papers fetched successfully.'
         ]);
     }
+
+    /**
+     * List all exam papers filtered by release year.
+     */
+    public function papersByYear($year)
+    {
+        $papers = EduPaper::where('year', $year)
+            ->with('subject')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $papers,
+            'message' => 'Papers for year ' . $year . ' fetched successfully.'
+        ]);
+    }
 }

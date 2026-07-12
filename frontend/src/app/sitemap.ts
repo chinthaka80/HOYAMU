@@ -20,9 +20,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/edu/ai-tutor',
     '/edu/ai-quiz',
     '/edu/guides',
+    '/past-papers',
   ];
 
   const dynamicRoutes: string[] = [];
+
+  // Generate Year based Past Papers routes for sitemap indexing
+  const years = [2025, 2024, 2023, 2022, 2021, 2020];
+  for (const year of years) {
+    dynamicRoutes.push(`/past-papers/${year}`);
+  }
 
   try {
     const response = await fetch('http://127.0.0.1:8000/api/edu/subjects');
@@ -61,6 +68,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
-    priority: route === '' ? 1.0 : route.startsWith('/edu') ? 0.9 : 0.8,
+    priority: route === '' ? 1.0 : route.startsWith('/edu') || route.startsWith('/past-papers') ? 0.9 : 0.8,
   }));
 }
