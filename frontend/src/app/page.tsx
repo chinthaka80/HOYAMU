@@ -1,257 +1,274 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Hero from '@/components/Hero';
+import SearchBar from '@/components/SearchBar';
+import CategoryCard from '@/components/CategoryCard';
+import ListingCard from '@/components/ListingCard';
+import BusinessCard from '@/components/BusinessCard';
+import JobCard from '@/components/JobCard';
+import VehicleCard from '@/components/VehicleCard';
+import PropertyCard from '@/components/PropertyCard';
+import NewsCard from '@/components/NewsCard';
+import { Car, Home, Briefcase, FolderSearch, Newspaper, Store, ArrowRight, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { Search, Briefcase, Car, Home, ShieldCheck, Compass, Star, Mail, Github, Send, Terminal, Settings, Globe, MessageSquare, Newspaper, ShoppingBag, Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
-export default function PreLaunchLandingPage() {
-  const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setIsSubmitting(true);
-    // Mock subscription request
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubscribed(true);
-    setEmail('');
-  };
-
-  const features = [
-    { title: 'Smart AI Search', icon: <Search size={22} />, desc: 'Fuzzy search understanding natural prompt queries in Sinhala, Tamil, and English.' },
-    { title: 'Business Directory', icon: <Compass size={22} />, desc: 'Local directory profiles verified by admin logs with maps routing.' },
-    { title: 'Jobs Board', icon: <Briefcase size={22} />, desc: 'Sri Lankan recruitment portal with online CV application managers.' },
-    { title: 'Properties Hub', icon: <Home size={22} />, desc: 'Lands, houses, and apartment listings with perch-to-sqft calculators.' },
-    { title: 'Vehicles Marketplace', icon: <Car size={22} />, desc: 'Car listings with automated make/model specification grids.' },
-    { title: 'Classified Marketplace', icon: <ShoppingBag size={22} />, desc: 'General catalog trading with negotiated offers and direct chats.' },
-    { title: 'AI Assistant', icon: <MessageSquare size={22} />, desc: 'Personalized recommendations agent guiding listing descriptions.' },
-    { title: 'News Portal', icon: <Newspaper size={22} />, desc: 'Market intelligence guides, vehicle tips, and local business insights.' },
+export default function HomePage() {
+  const categories = [
+    { title: 'Vehicles', icon: <Car size={24} />, count: '1,240 Ads', link: '/vehicles', colorClass: 'bg-blue-500/10 text-blue-500' },
+    { title: 'Properties', icon: <Home size={24} />, count: '890 Ads', link: '/properties', colorClass: 'bg-green-500/10 text-green-500' },
+    { title: 'Jobs Board', icon: <Briefcase size={24} />, count: '450 Openings', link: '/jobs', colorClass: 'bg-purple-500/10 text-purple-500' },
+    { title: 'Marketplace', icon: <FolderSearch size={24} />, count: '3,120 Ads', link: '/search', colorClass: 'bg-orange-500/10 text-orange-500' },
+    { title: 'Business Directory', icon: <Store size={24} />, count: '780 Profiles', link: '/business', colorClass: 'bg-yellow-500/10 text-yellow-600' },
+    { title: 'Local News', icon: <Newspaper size={24} />, count: '120 Articles', link: '/news', colorClass: 'bg-red-500/10 text-red-500' },
   ];
 
-  const roadmap = [
-    { ver: 'Version 0.1 (Foundations)', status: 'Completed', date: 'Q1 2026', desc: 'Project specs, ERD blueprints, Next.js client, and Laravel models routing.' },
-    { ver: 'Version 0.5 (Core MVP)', status: 'Active Development', date: 'Q2 2026', desc: 'PostgreSQL database seeders, user login auth validation, and search portals.' },
-    { ver: 'Version 1.0 (Public Beta)', status: 'Upcoming', date: 'Q3 2026', desc: 'Real-time chat channels, PayHere gateway payments, and moderation settings.' },
-    { ver: 'Version 2.0 (AI Supercharge)', status: 'Planned', date: 'Q4 2026', desc: 'Fuzzy query natural processing translation and recommendation engines.' },
-    { ver: 'Version 3.0 (Expansion)', status: 'Planned', date: '2027', desc: 'Cross-platform Flutter mobile applications and multi-country features.' },
+  const featuredListings = [
+    { title: 'iPhone 15 Pro Max 256GB', price: 'Rs. 325,000', location: 'Colombo', category: 'Marketplace', link: '/search' },
+    { title: 'Dell XPS 15 9520 Core i9', price: 'Rs. 420,000', location: 'Kandy', category: 'Marketplace', link: '/search' },
+    { title: 'Canon EOS R6 Mark II Body', price: 'Rs. 680,000', location: 'Gampaha', category: 'Marketplace', link: '/search' },
   ];
 
-  const technologies = [
-    { name: 'Laravel 12', desc: 'API Engine' },
-    { name: 'Next.js 16', desc: 'Client SSR' },
-    { name: 'PostgreSQL', desc: 'Data Vault' },
-    { name: 'Redis', desc: 'Cache & Queue' },
-    { name: 'Docker', desc: 'Containers' },
-    { name: 'Cloudflare', desc: 'CDN & WAF' },
+  const popularBusinesses = [
+    { name: 'Kandy Auto Spares Ltd', category: 'Auto Repairs', rating: 4.8, location: 'Kandy', isVerified: true, link: '/business' },
+    { name: 'Apex Digital Marketing Agency', category: 'Software & IT', rating: 4.9, location: 'Colombo 03', isVerified: true, link: '/business' },
+  ];
+
+  const latestJobs = [
+    { title: 'Senior React Developer', company: 'LankaHub Solutions', location: 'Colombo 04', salary: 'Rs. 350,000 - 450,000', type: 'Full-time', link: '/jobs' },
+    { title: 'Content Writer (Sinhala)', company: 'Hoyamu Newsroom', location: 'Remote', salary: 'Rs. 80,000 - 120,000', type: 'Part-time', link: '/jobs' },
+  ];
+
+  const latestVehicles = [
+    { title: 'Toyota Prius S-Grade 2018', price: 'Rs. 9,450,000', location: 'Colombo', mileage: '56,000 km', transmission: 'Automatic', type: 'Hybrid', link: '/vehicles' },
+    { title: 'Honda Vezel Z-Package 2016', price: 'Rs. 7,850,000', location: 'Gampaha', mileage: '82,000 km', transmission: 'Automatic', type: 'Hybrid', link: '/vehicles' },
+  ];
+
+  const latestProperties = [
+    { title: 'Modern 3 BR House in Kottawa', price: 'Rs. 28,500,000', location: 'Colombo', beds: '3 Beds', size: '1,800 sqft', type: 'House', link: '/properties' },
+    { title: '15 Perch Commercial Land', price: 'Rs. 1,800,000 / perch', location: 'Gampaha', beds: 'N/A', size: '15 Perch', type: 'Land', link: '/properties' },
+  ];
+
+  const latestNews = [
+    { title: 'Market Trends: Sri Lankan Property Demand Spikes in 2026', date: 'July 10, 2026', category: 'Real Estate', summary: 'A comprehensive study of property rates in major urban areas showing a 12% rise in demand.', link: '/news' },
+    { title: 'Tech Startups: Colombo Hub Sees Rapid Growth in Seed Fundings', date: 'July 05, 2026', category: 'Business', summary: 'Local incubators report higher success rates as domestic digital directories connect traders.', link: '/news' },
   ];
 
   return (
-    <div className="flex-1 w-full bg-[#FAFAFA] flex flex-col text-[#222222]">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#222222] to-[#111111] text-white py-24 px-4 text-center relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#E25704]/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="space-y-16 pb-16 bg-[#FAFAFA] text-[#222222]">
+      {/* Hero Header */}
+      <Hero />
 
-        <div className="max-w-4xl mx-auto space-y-6 relative z-10">
-          <span className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-[#E25704] font-semibold bg-[#E25704]/10 px-3.5 py-1.5 rounded-full border border-[#E25704]/20">
-            <span className="w-1.5 h-1.5 bg-[#E25704] rounded-full animate-ping"></span>
-            Join the Pre-Launch Early Access
-          </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            HOYAMU.NET
-          </h1>
-          <h2 className="text-xl md:text-2xl font-bold text-[#E25704]">
-            ශ්‍රී ලංකාවේ හොයන හැමදේම එකම තැන
-          </h2>
-          <p className="text-xs md:text-sm text-[#9CA3AF] max-w-xl mx-auto leading-relaxed">
-            Properties &bull; Vehicles &bull; Jobs &bull; Businesses &bull; News &bull; Marketplace &bull; AI Search
-          </p>
+      {/* Search Input Bar wrapper */}
+      <div className="px-4 -mt-10 relative z-20">
+        <SearchBar />
+      </div>
 
-          {/* Quick Demo search box */}
-          <div className="max-w-xl mx-auto bg-white/5 backdrop-blur-md p-1.5 rounded-xl border border-white/10 flex flex-col sm:flex-row gap-2 mt-8 shadow-2xl">
-            <div className="relative flex-1">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-[#9CA3AF]">
-                <Search size={16} />
-              </span>
-              <input
-                type="text"
-                disabled
-                placeholder="Fuzzy Search Demo: Prius below 8 million Colombo..."
-                className="w-full h-10 pl-9 pr-4 bg-white/5 border border-white/10 rounded-lg text-xs text-white/50 cursor-not-allowed"
-              />
-            </div>
-            <a href="#newsletter">
-              <Button size="sm" className="w-full sm:w-auto h-10 px-6 bg-[#E25704] hover:bg-[#C94D03] text-white font-semibold rounded-lg text-xs transition-all">
-                Get Early Access
-              </Button>
-            </a>
+      {/* Popular Categories Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="flex justify-between items-end">
+          <div className="space-y-1">
+            <h2 className="text-xl font-bold tracking-tight">Popular Categories</h2>
+            <p className="text-xs text-[#6B7280]">Browse classified ads by category channels</p>
           </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="max-w-5xl mx-auto px-4 py-16 text-center space-y-4">
-        <h2 className="text-2xl font-bold">What is HOYAMU.NET?</h2>
-        <p className="text-sm text-[#6B7280] leading-relaxed max-w-3xl mx-auto">
-          HOYAMU.NET is Sri Lanka's upcoming digital super platform combining classified ads, job boards, property portals, vehicle marketplaces, and verified local business directories with a natural language AI-assisted search companion.
-        </p>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="bg-white border-y border-[#E5E7EB] py-16 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 space-y-2">
-            <h2 className="text-2xl font-bold">Ecosystem Features</h2>
-            <p className="text-xs text-[#6B7280]">Unified tools powering the super platform directories</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feat, idx) => (
-              <div
-                key={idx}
-                className="bg-[#FAFAFA] border border-[#E5E7EB] p-6 rounded-2xl flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <div className="h-10 w-10 bg-[#E25704]/10 text-[#E25704] rounded-xl flex items-center justify-center">
-                    {feat.icon}
-                  </div>
-                  <h3 className="text-sm font-bold text-[#222222]">{feat.title}</h3>
-                  <p className="text-xs text-[#6B7280] leading-relaxed">{feat.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Mockups Screenshots Preview Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div className="text-center mb-12 space-y-2">
-          <h2 className="text-2xl font-bold">First Look: High-Fidelity UI Screens</h2>
-          <p className="text-xs text-[#6B7280]">Interactive templates built for desktop and mobile viewports</p>
+          <Link href="/categories" className="text-xs font-bold text-[#E25704] hover:underline flex items-center gap-1">
+            All Categories
+            <ArrowRight size={14} />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border border-[#E5E7EB] p-4 rounded-2xl space-y-3">
-            <div className="h-40 bg-[#FAFAFA] rounded-xl flex flex-col items-center justify-center border border-dashed border-[#E5E7EB] text-[#6B7280]">
-              <Eye size={24} className="mb-2" />
-              <span className="text-xs font-semibold">Homepage Preview</span>
-            </div>
-            <h4 className="text-xs font-bold text-[#222222] uppercase tracking-wide">1. Central Portal</h4>
-            <p className="text-[11px] text-[#6B7280]">Tagline search banners, featured ads sliders and statistics.</p>
-          </div>
-
-          <div className="bg-white border border-[#E5E7EB] p-4 rounded-2xl space-y-3">
-            <div className="h-40 bg-[#FAFAFA] rounded-xl flex flex-col items-center justify-center border border-dashed border-[#E5E7EB] text-[#6B7280]">
-              <Eye size={24} className="mb-2" />
-              <span className="text-xs font-semibold">Search Filter Preview</span>
-            </div>
-            <h4 className="text-xs font-bold text-[#222222] uppercase tracking-wide">2. Filters Sidebar</h4>
-            <p className="text-[11px] text-[#6B7280]">Dynamic criteria selection, view-mode toggles, and list pages.</p>
-          </div>
-
-          <div className="bg-white border border-[#E5E7EB] p-4 rounded-2xl space-y-3">
-            <div className="h-40 bg-[#FAFAFA] rounded-xl flex flex-col items-center justify-center border border-dashed border-[#E5E7EB] text-[#6B7280]">
-              <Eye size={24} className="mb-2" />
-              <span className="text-xs font-semibold">Business Profile Preview</span>
-            </div>
-            <h4 className="text-xs font-bold text-[#222222] uppercase tracking-wide">3. Business details</h4>
-            <p className="text-[11px] text-[#6B7280]">Verified badges, details description tabs and reviews threads.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Roadmap Timeline */}
-      <section className="bg-white border-y border-[#E5E7EB] py-16 w-full">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12 space-y-2">
-            <h2 className="text-2xl font-bold">Platform Roadmap</h2>
-            <p className="text-xs text-[#6B7280]">Our milestones timeline from setup to launch and expansion</p>
-          </div>
-
-          <div className="relative border-l-2 border-[#E5E7EB] pl-6 ml-4 space-y-8">
-            {roadmap.map((step, idx) => (
-              <div key={idx} className="relative">
-                {/* Dot */}
-                <span className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full border-2 border-white bg-[#E25704] shadow-sm"></span>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-sm font-bold text-[#222222]">{step.ver}</h3>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                      step.status === 'Completed' ? 'bg-[#16A34A]/10 text-[#16A34A]' :
-                      step.status === 'Active Development' ? 'bg-[#2563EB]/10 text-[#2563EB]' : 'bg-[#6B7280]/10 text-[#6B7280]'
-                    }`}>
-                      {step.status}
-                    </span>
-                    <span className="text-xs text-[#9CA3AF] ml-auto">{step.date}</span>
-                  </div>
-                  <p className="text-xs text-[#6B7280] leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full text-center">
-        <div className="text-center mb-12 space-y-2">
-          <h2 className="text-2xl font-bold">Ecosystem Technology Stack</h2>
-          <p className="text-xs text-[#6B7280]">Built on secure, highly scalable enterprise-grade utilities</p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-          {technologies.map((tech, idx) => (
-            <div key={idx} className="bg-white border border-[#E5E7EB] p-4 rounded-xl flex flex-col justify-center">
-              <span className="text-sm font-bold text-[#E25704]">{tech.name}</span>
-              <span className="text-[10px] text-[#6B7280] mt-1">{tech.desc}</span>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
+          {categories.map((cat, idx) => (
+            <CategoryCard
+              key={idx}
+              title={cat.title}
+              icon={cat.icon}
+              count={cat.count}
+              link={cat.link}
+              colorClass={cat.colorClass}
+            />
           ))}
         </div>
       </section>
 
-      {/* Newsletter Signup Form */}
-      <section id="newsletter" className="bg-[#222222] text-white py-20 px-4 text-center w-full">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <div className="h-12 w-12 bg-[#E25704]/10 text-[#E25704] rounded-full flex items-center justify-center mx-auto border border-[#E25704]/20">
-            <Mail size={24} />
+      {/* Grid containing Listings and Businesses */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Featured Listings */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Featured Classifieds</h2>
+            <Link href="/search" className="text-xs font-bold text-[#E25704] hover:underline">
+              See All
+            </Link>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold">Join 10,000 Early Access Users</h2>
-          <p className="text-xs text-[#9CA3AF] max-w-md mx-auto leading-relaxed">
-            Subscribe to our newsletter list and get early beta notifications, launch guides, and verified member discounts.
-          </p>
-
-          {isSubscribed ? (
-            <div className="max-w-md mx-auto bg-white/5 border border-[#16A34A]/30 p-4 rounded-xl text-center space-y-1">
-              <h4 className="text-sm font-bold text-[#16A34A]">Registration Successful!</h4>
-              <p className="text-xs text-[#9CA3AF]">You are now registered for the early access queue. Thank you!</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                className="flex-1 h-11 px-4 bg-white/5 border border-white/10 rounded-lg text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#E25704] focus:ring-1 focus:ring-[#E25704]"
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {featuredListings.map((list, idx) => (
+              <ListingCard
+                key={idx}
+                title={list.title}
+                price={list.price}
+                location={list.location}
+                category={list.category}
+                link={list.link}
               />
-              <Button type="submit" disabled={isSubmitting} className="h-11 px-6 bg-[#E25704] hover:bg-[#C94D03] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all">
-                {isSubmitting ? (
-                  <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                ) : (
-                  <>
-                    <Send size={14} />
-                    Subscribe
-                  </>
-                )}
-              </Button>
-            </form>
-          )}
+            ))}
+          </div>
+        </div>
+
+        {/* Verified Directories */}
+        <div className="space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Verified Partners</h2>
+            <Link href="/business" className="text-xs font-bold text-[#E25704] hover:underline">
+              View All
+            </Link>
+          </div>
+          <div className="space-y-4">
+            {popularBusinesses.map((biz, idx) => (
+              <BusinessCard
+                key={idx}
+                name={biz.name}
+                category={biz.category}
+                rating={biz.rating}
+                location={biz.location}
+                isVerified={biz.isVerified}
+                link={biz.link}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Grid containing Vehicles and Properties */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Vehicles */}
+        <div className="space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Featured Vehicles</h2>
+            <Link href="/vehicles" className="text-xs font-bold text-[#E25704] hover:underline">
+              Explore vehicles
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {latestVehicles.map((veh, idx) => (
+              <VehicleCard
+                key={idx}
+                title={veh.title}
+                price={veh.price}
+                location={veh.location}
+                mileage={veh.mileage}
+                transmission={veh.transmission}
+                type={veh.type}
+                link={veh.link}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Properties */}
+        <div className="space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Prime Properties</h2>
+            <Link href="/properties" className="text-xs font-bold text-[#E25704] hover:underline">
+              Explore properties
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {latestProperties.map((prop, idx) => (
+              <PropertyCard
+                key={idx}
+                title={prop.title}
+                price={prop.price}
+                location={prop.location}
+                beds={prop.beds}
+                size={prop.size}
+                type={prop.type}
+                link={prop.link}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Jobs Board & News portal section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Jobs vacancies list */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Latest Job Openings</h2>
+            <Link href="/jobs" className="text-xs font-bold text-[#E25704] hover:underline">
+              Browse Jobs
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {latestJobs.map((job, idx) => (
+              <JobCard
+                key={idx}
+                title={job.title}
+                company={job.company}
+                location={job.location}
+                salary={job.salary}
+                type={job.type}
+                link={job.link}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Local News list */}
+        <div className="space-y-6">
+          <div className="flex justify-between items-end">
+            <h2 className="text-lg font-bold tracking-tight">Market Intelligence</h2>
+            <Link href="/news" className="text-xs font-bold text-[#E25704] hover:underline">
+              All News
+            </Link>
+          </div>
+          <div className="space-y-4">
+            {latestNews.map((news, idx) => (
+              <NewsCard
+                key={idx}
+                title={news.title}
+                date={news.date}
+                category={news.category}
+                summary={news.summary}
+                link={news.link}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Platform verification CTA banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#222222] text-[#FAFAFA] p-8 md:p-12 rounded-3xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-8 shadow-lg border border-transparent">
+          {/* Background Glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#E25704]/20 rounded-full blur-[80px] pointer-events-none"></div>
+
+          <div className="space-y-4 max-w-xl relative z-10">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#E25704] flex items-center gap-1">
+              <ShieldCheck size={14} />
+              HOYAMU Verified business directory
+            </span>
+            <h2 className="text-2xl md:text-3xl font-black leading-tight">
+              Boost your local brand visibility today!
+            </h2>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+              Register your workspace profile card, display services checklists, and get verified badge validation status to increase user queries conversion metrics.
+            </p>
+          </div>
+
+          <div className="flex gap-3 relative z-10 flex-shrink-0">
+            <Link href="/business">
+              <button className="h-11 px-6 bg-[#E25704] hover:bg-[#C94D03] text-white text-xs font-semibold rounded-xl transition-all">
+                List Your Business
+              </button>
+            </Link>
+            <Link href="/contact">
+              <button className="h-11 px-6 border border-[#404040] hover:border-[#A3A3A3] text-white text-xs font-semibold rounded-xl transition-all">
+                Contact Sales
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
