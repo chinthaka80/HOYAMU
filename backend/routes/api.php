@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\EduController;
+use App\Http\Controllers\AITutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,18 @@ Route::get('/businesses/{uuid}', [BusinessController::class, 'show']);
 Route::get('/provinces', [\App\Http\Controllers\LocationController::class, 'provinces']);
 Route::get('/districts', [\App\Http\Controllers\LocationController::class, 'districts']);
 Route::get('/cities', [\App\Http\Controllers\LocationController::class, 'cities']);
+
+// HOYAMU EDU Routes
+Route::prefix('edu')->group(function () {
+    Route::get('/subjects', [EduController::class, 'subjects']);
+    Route::get('/subjects/{subjectSlug}/lessons', [EduController::class, 'lessons']);
+    Route::get('/subjects/{subjectSlug}/lessons/{lessonSlug}', [EduController::class, 'lessonDetail']);
+    Route::get('/subjects/{subjectSlug}/papers', [EduController::class, 'papers']);
+    
+    // AI Tutor Chat endpoints
+    Route::post('/ai-tutor/ask', [AITutorController::class, 'ask']);
+    Route::get('/ai-tutor/chat/{chatId}', [AITutorController::class, 'chatHistory']);
+});
 
 // Authenticated Routes (Sanctum Protected)
 Route::middleware('auth:sanctum')->group(function () {
