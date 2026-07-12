@@ -2,11 +2,39 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, Menu, X, Globe, User, PlusCircle } from 'lucide-react';
+import { Search, Menu, X, Globe, User, PlusCircle, LayoutDashboard, LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/authStore';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/useToast';
+import { useRouter } from 'next/navigation';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, setUser } = useAuthStore();
+  const { logout } = useAuth();
+  const toast = useToast();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      toast.success('Logged Out', 'You have logged out successfully.');
+      router.push('/auth/login');
+    } catch (err) {
+      toast.error('Logout Failed', 'An error occurred.');
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#E5E7EB] w-full">
@@ -58,13 +86,60 @@ export default function Navbar() {
             </Button>
 
             {/* Authentication & Post ad */}
-            <Link href="/auth/login">
-              <Button variant="ghost" size="sm" className="text-xs font-semibold text-[#222222] hover:text-[#E25704]">
-                Sign In
-              </Button>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                    <Avatar className="h-9 w-9">
+                      <AvatarImage src={user.avatar || undefined} alt={user.username} />
+                      <AvatarFallback className="bg-[#E25704]/10 text-[#E25704] text-xs font-bold">
+                        {user.first_name?.[0]?.toUpperCase()}{user.last_name?.[0]?.toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-semibold leading-none">{user.first_name} {user.last_name}</p>
+                      <p className="text-xs leading-none text-[#6B7280]">{user.email}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/dashboard" className="flex items-center gap-2 cursor-pointer w-full">
+                      <LayoutDashboard size={14} />
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="flex items-center gap-2 cursor-pointer w-full">
+                      <User size={14} />
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/settings" className="flex items-center gap-2 cursor-pointer w-full">
+                      <Settings size={14} />
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 text-red-600 focus:text-red-600 cursor-pointer">
+                    <LogOut size={14} />
+                    Log Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/auth/login">
+                <Button variant="ghost" size="sm" className="text-xs font-semibold text-[#222222] hover:text-[#E25704]">
+                  Sign In
+                </Button>
+              </Link>
+            )}
 
-            <Link href="/auth/login">
+            <Link href={user ? "/search" : "/auth/login"}>
               <Button size="sm" className="h-9 px-4 bg-[#E25704] hover:bg-[#C94D03] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all">
                 <PlusCircle size={14} />
                 Post Ad
@@ -127,13 +202,28 @@ export default function Navbar() {
 
           {/* Quick actions for mobile */}
           <div className="pt-4 border-t border-[#E5E7EB] space-y-3">
-            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="w-full">
-              <Button variant="outline" className="w-full h-10 border-[#E5E7EB] text-[#222222] text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
-                <User size={16} />
-                Sign In
-              </Button>
-            </Link>
-            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="w-full block">
+            {user ? (
+              <>
+                <Link href="/dashboard" onClick={() => setIsOpen(false)} className="block w-full">
+                  <Button variant="outline" className="w-full h-10 border-[#E5E7EB] text-[#222222] text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
+                    <LayoutDashboard size={16} />
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button onClick={handleLogout} className="w-full h-10 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
+                  <LogOut size={16} />
+                  Log Out
+                </Button>
+              </>
+            ) : (
+              <Link href="/auth/login" onClick={() => setIsOpen(false)} className="w-full">
+                <Button variant="outline" className="w-full h-10 border-[#E5E7EB] text-[#222222] text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
+                  <User size={16} />
+                  Sign In
+                </Button>
+              </Link>
+            )}
+            <Link href={user ? "/search" : "/auth/login"} onClick={() => setIsOpen(false)} className="w-full block">
               <Button className="w-full h-10 bg-[#E25704] hover:bg-[#C94D03] text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5">
                 <PlusCircle size={16} />
                 Post Ad
