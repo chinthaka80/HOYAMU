@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\EduController;
+use App\Http\Controllers\AITutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,23 @@ use App\Http\Controllers\BusinessController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Database & Server Health Check
+Route::get('/db-check', function () {
+    try {
+        \DB::connection()->getPdo();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'PostgreSQL connection established successfully.',
+            'database' => \DB::connection()->getDatabaseName()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Could not connect to database: ' . $e->getMessage()
+        ], 500);
+    }
+});
 
 // Authentication Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -35,11 +54,26 @@ Route::get('/provinces', [\App\Http\Controllers\LocationController::class, 'prov
 Route::get('/districts', [\App\Http\Controllers\LocationController::class, 'districts']);
 Route::get('/cities', [\App\Http\Controllers\LocationController::class, 'cities']);
 
+// HOYAMU EDU Routes
+Route::prefix('edu')->group(function () {
+    Route::get('/subjects', [EduController::class, 'subjects']);
+    Route::get('/subjects/{subjectSlug}/lessons', [EduController::class, 'lessons']);
+    Route::get('/subjects/{subjectSlug}/lessons/{lessonSlug}', [EduController::class, 'lessonDetail']);
+    Route::get('/subjects/{subjectSlug}/papers', [EduController::class, 'papers']);
+    Route::get('/papers/year/{year}', [EduController::class, 'papersByYear']);
+    
+    // AI Tutor Chat endpoints
+    Route::post('/ai-tutor/ask', [AITutorController::class, 'ask']);
+    Route::get('/ai-tutor/chat/{chatId}', [AITutorController::class, 'chatHistory']);
+});
+
 // Authenticated Routes (Sanctum Protected)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::put('/profile', [AuthController::class, 'updateProfile']);
+    Route::put('/password', [AuthController::class, 'updatePassword']);
+    Route::delete('/account', [AuthController::class, 'deleteAccount']);
 
     // Listings Management
     Route::post('/listings', [ListingController::class, 'store']);
